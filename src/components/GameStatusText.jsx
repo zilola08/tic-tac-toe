@@ -22,7 +22,7 @@ const GameStatusText = (props) => {
       }
       return `Game over! ${props.winner} won!`
     }
-    if (!props.gameEnd) {
+    else {
       return `${props.player}s turn:`
     }
   }
