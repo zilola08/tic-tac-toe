@@ -17,13 +17,13 @@ const GameStatusText = (props) => {
   const gameStatusText = () => {
 
     if (props.gameEnd) {
+      if (tie()) {
+        return "Game over! No winner!"
+      }
       return `Game over! ${props.winner} won!`
     }
     if (!props.gameEnd) {
       return `${props.player}s turn:`
-    }
-    if (tie()) {
-      return "Game over! No winner!"
     }
   }
 
