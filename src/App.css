@@ -39,6 +39,10 @@ html {
   background-color: rgb(56, 181, 181);
 }
 
+.notWinner {
+  opacity: 0.5;
+}
+
 .container {
   margin: 0 auto;
   border-radius: 3px;
@@ -69,4 +73,9 @@ html {
   color: rgb(89, 146, 147);
   width: 30rem;
   height: 2.5rem;
+}
+
+.text-won,
+.text-tie {
+  color: rgb(147, 89, 89);
 }

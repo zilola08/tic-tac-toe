@@ -3,6 +3,7 @@ import Spot from './Spot'
 import spotsInfo from '../spotsInfo';
 import winPos from '../winPos';
 import NewGameButton from './NewGameButton';
+import GameStatusText from './GameStatusText';
 
 const Gameboard = () => {
 
@@ -21,6 +22,7 @@ const Gameboard = () => {
   }
 
   const checkWinner = () => {
+    const markedValues = spotsInfo.map(value => value.marked);
     for (let i = 0; i < winPos.length; i++) {
       if
         (
@@ -33,29 +35,13 @@ const Gameboard = () => {
         spotsInfo[winPos[i][1]].winPos = true;
         spotsInfo[winPos[i][2]].winPos = true;
         setGameEnd(true);
-        // console.log(spotsInfo)
         return;
       }
     }
-  }
-
-  const renderGamestatus = () => {
-    let gameStatusText;
-    const markedValues = spotsInfo.map(value => value.marked);
-
-    if (gameEnd) {
-      gameStatusText = <p className='gameStatusText'>Game over! {winner} won!</p>
-    } else {
-      gameStatusText = <p className='gameStatusText'> { player}`s turn:</p>
-    }
-
     if (!winner && markedValues.every(v => v === true)) {
-      gameStatusText = <p className='gameStatusText'>Game over! No winner!</p>
+      setGameEnd(true);
     }
-
-    return gameStatusText;
   }
-
 
   const resetGame = () => {
     spotsInfo.forEach(spot => {
@@ -63,7 +49,7 @@ const Gameboard = () => {
       spot.player = null;
       spot.winPos = false;
     });
-    console.log(spotsInfo);
+
     setGameEnd(false);
     setWinner(null);
     setPlayer('X');
@@ -78,7 +64,7 @@ const Gameboard = () => {
 
   return (
     <div >
-      {renderGamestatus()}
+      <GameStatusText player={player} winner={winner} gameEnd={gameEnd} spotsInfo={spotsInfo} />
       <div className='board'>{boardRender()}</div>
       <NewGameButton resetGame={resetGame} />
     </div>
