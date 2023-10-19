@@ -1,10 +1,21 @@
 import React from 'react'
+import clsx from "clsx";
 
 const GameStatusText = (props) => {
+  const winClass = "text-won";
+  const tieClass = "text-won";
+
+  const tie = () => {
+    const markedValues = props.spotsInfo.map(value => value.marked);
+    if (!props.winner && markedValues.every(v => v === true)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   const gameStatusText = () => {
     let gameStatusText;
-    const markedValues = props.spotsInfo.map(value => value.marked);
 
     if (props.gameEnd) {
       gameStatusText = `Game over! ${props.winner} won!`
@@ -12,7 +23,7 @@ const GameStatusText = (props) => {
       gameStatusText = `${props.player}s turn:`
     }
 
-    if (!props.winner && markedValues.every(v => v === true)) {
+    if (tie()) {
       gameStatusText = "Game over! No winner!"
     }
 
@@ -20,7 +31,7 @@ const GameStatusText = (props) => {
   }
 
   return (
-    <p className='gameStatusText'>{gameStatusText()}</p>
+    <p className={clsx('gameStatusText',{ [winClass]: props.gameEnd },{ [tieClass]: tie() })}>{gameStatusText()}</p>
   )
 }
 
