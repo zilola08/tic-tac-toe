@@ -40,6 +40,7 @@ const Gameboard = () => {
     }
     if (!winner && markedValues.every(v => v === true)) {
       setGameEnd(true);
+      return;
     }
   }
 
@@ -58,13 +59,27 @@ const Gameboard = () => {
 
   const boardRender = () => spotsInfo.map(spot => {
     return (
-      <Spot key={spot.id} id={spot.id} switchPlayer={switchPlayer} player={player} checkWinner={checkWinner} gameEnd={gameEnd} spotsInfo={spotsInfo} newBoard={newBoard} winPos={spot.winPos} />
+      <Spot
+        key={spot.id}
+        id={spot.id}
+        switchPlayer={switchPlayer}
+        player={player}
+        checkWinner={checkWinner}
+        gameEnd={gameEnd}
+        spotsInfo={spotsInfo}
+        newBoard={newBoard}
+        winPos={spot.winPos} />
     )
   })
 
   return (
     <div >
-      <GameStatusText player={player} winner={winner} gameEnd={gameEnd} spotsInfo={spotsInfo} />
+      <GameStatusText
+        player={player}
+        winner={winner}
+        gameEnd={gameEnd}
+        spotsInfo={spotsInfo}
+      />
       <div className='board'>{boardRender()}</div>
       <NewGameButton resetGame={resetGame} />
     </div>
